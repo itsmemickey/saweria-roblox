@@ -9,25 +9,22 @@ app.post('/saweria-webhook', (req, res) => {
   if (!data) return res.sendStatus(400);
 
   pendingDonations.push({
-    donatur: data.donator_name || "Anonim",
-    jumlah: data.amount || 0,
-    pesan: data.message || ""
+    donatur_name    : data.donator_name || "Anonim",
+    donatur_message : data.message      || "",
+    amount          : data.amount       || 0,
   });
 
-  console.log("Donasi masuk:", data);
+  console.log("Donasi Saweria masuk:", data);
   res.sendStatus(200);
 });
 
 app.get('/get-donations', (req, res) => {
-  // Pastikan selalu return JSON
   res.setHeader('Content-Type', 'application/json');
   res.json(pendingDonations);
   pendingDonations = [];
 });
 
-app.get('/', (req, res) => {
-  res.send('Server aktif!');
-});
+app.get('/', (req, res) => res.send('Server aktif!'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log('Server berjalan di port ' + PORT));
