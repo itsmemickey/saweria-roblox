@@ -19,6 +19,8 @@ app.post('/saweria-webhook', (req, res) => {
 });
 
 app.get('/get-donations', (req, res) => {
+  // Pastikan selalu return JSON
+  res.setHeader('Content-Type', 'application/json');
   res.json(pendingDonations);
   pendingDonations = [];
 });
