@@ -13,11 +13,11 @@ app.post('/saweria-webhook', (req, res) => {
   console.log(JSON.stringify(data, null, 2));
   console.log("===========================");
 
-  pendingDonations.push({
-    donatur_name    : data.donator_name || data.name || data.from || "Anonim",
-    donatur_message : data.message      || data.msg  || "",
-    amount          : data.amount       || data.nominal || data.price || data.total || 0,
-  });
+pendingDonations.push({
+    donatur_name    : data.donator_name || "Anonim",
+    donatur_message : data.message      || "",
+    amount          : data.amount_raw   || 0,  // ← pakai amount_raw!
+});
 
   res.sendStatus(200);
 });
