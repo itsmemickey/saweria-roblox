@@ -8,13 +8,17 @@ app.post('/saweria-webhook', (req, res) => {
   const data = req.body;
   if (!data) return res.sendStatus(400);
 
+  // LOG SEMUA FIELD yang dikirim Saweria
+  console.log("=== SAWERIA WEBHOOK DATA ===");
+  console.log(JSON.stringify(data, null, 2));
+  console.log("===========================");
+
   pendingDonations.push({
-    donatur_name    : data.donator_name || "Anonim",
-    donatur_message : data.message      || "",
-    amount          : data.amount       || 0,
+    donatur_name    : data.donator_name || data.name || data.from || "Anonim",
+    donatur_message : data.message      || data.msg  || "",
+    amount          : data.amount       || data.nominal || data.price || data.total || 0,
   });
 
-  console.log("Donasi Saweria masuk:", data);
   res.sendStatus(200);
 });
 
